@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pronunciation practicer</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f4f8;
+            text-align: center;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+        #nameDisplay {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pronunciation practicer</h1>
+        <input type="text" id="nameDisplay" readonly>
+        <button onclick="TalkingBot.speak();">Speak</button>
+    </div>
+    <script>
+    const TalkingBot = {
+        names: ['Melvin Johnson', 'Koray Kavukcuoglu', 'Oriol Vinyals', 'Noam Shazeer', 'Melvin Johnson', 'Francesco Nor', 'Connie Fan', 'Vikas Peswani', 'Siddharth Dalmia', 'Siddharth Lall', 'Scott Silver', 'Kareem Ayoub', 'Danny Tarlow', 'Quoc V. Le', 'Yonghui Wu', 'Jimmy Ba', 'Ruoming Pang', 'Daphne Luong', 'Stuart Bowers', 'Ahmad Al Dahle', 'Chris Cox', 'Connor Hayes', 'Wojciech Zaremba ', 'Kevin Weil', 'Liam Fedus', 'Dario Amodei', 'John Schulman', 'Jack Clark', 'Dan Hendrycks', 'Jason Droege', '', 
+],
+        currentIndex: 0,
+        
+        speak() {
+            // Get the current name
+            const currentName = this.names[this.currentIndex];
+            
+            // Update the name display
+            const nameDisplayElement = document.getElementById('nameDisplay');
+            nameDisplayElement.value = currentName;
+            
+            // Create speech synthesis
+            const utterance = new SpeechSynthesisUtterance(currentName);
+            window.speechSynthesis.speak(utterance);
+            
+            // Cycle to the next name
+            this.currentIndex = (this.currentIndex + 1) % this.names.length;
+        }
+    };
+    </script>
+</body>
+</html>
