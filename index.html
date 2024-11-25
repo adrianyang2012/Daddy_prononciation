@@ -58,15 +58,31 @@
         <h1>Pronunciation practicer</h1>
         <input type="text" id="nameDisplay" readonly>
         <button onclick="TalkingBot.speak();">Next Name</button>
+        <button onclick="TalkingBot.speak();">Listen Again</button>
     </div>
     <script>
     const TalkingBot = {
         names: ['Melvin Johnson', 'Koray Kavukcuoglu', 'Oriol Vinyals', 'Noam Shazeer', 'Melvin Johnson', 'Francesco Nor', 'Connie Fan', 'Vikas Peswani', 'Siddharth Dalmia', 'Siddharth Lall', 'Scott Silver', 'Kareem Ayoub', 'Danny Tarlow', 'Quoc V. Le', 'Yonghui Wu', 'Jimmy Ba', 'Ruoming Pang', 'Daphne Luong', 'Stuart Bowers', 'Ahmad Al Dahle', 'Chris Cox', 'Connor Hayes', 'Wojciech Zaremba ', 'Kevin Weil', 'Liam Fedus', 'Dario Amodei', 'John Schulman', 'Jack Clark', 'Dan Hendrycks', 'Jason Droege', '', 
 ],
         currentIndex: 0,
-        
         speak() {
             // Get the current name
+            const currentName = this.names[this.currentIndex];
+            
+            // Update the name display
+            const nameDisplayElement = document.getElementById('nameDisplay');
+            nameDisplayElement.value = currentName;
+            
+            // Create speech synthesis
+            const utterance = new SpeechSynthesisUtterance(currentName);
+            window.speechSynthesis.speak(utterance);
+            
+            // Cycle to the next name
+            this.currentIndex = (this.currentIndex + 1) % this.names.length;
+        }
+        respeak() {
+            // Get the current name
+            this.currentIndex = (this.currentIndex - 1) % this.names.length;
             const currentName = this.names[this.currentIndex];
             
             // Update the name display
